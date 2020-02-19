@@ -1,0 +1,51 @@
+<mat-card class="mycard">
+  <mat-form-field>
+    <label>
+      <input matInput  (keyup)="applyFilter($event.target.value)" placeholder="جستجو">
+    </label>
+  </mat-form-field>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>نام </th>
+      <td mat-cell *matCellDef="let data"> {{data.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="lastname">
+      <th mat-header-cell *matHeaderCellDef>نام خانوادگی</th>
+      <td mat-cell *matCellDef="let data"> {{data.lastname}} </td>
+    </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="service">
+      <th mat-header-cell *matHeaderCellDef> خدمات </th>
+      <td mat-cell *matCellDef="let data"> {{data.service}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="payed">
+      <th mat-header-cell *matHeaderCellDef> برداشت شده </th>
+      <td mat-cell *matCellDef="let data"> {{data.payed}} </td>
+    </ng-container>
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>تاریخ </th>
+      <td mat-cell *matCellDef="let data"> {{data.date}} </td>
+    </ng-container>
+    <ng-container matColumnDef="phonenumber">
+      <th mat-header-cell *matHeaderCellDef>شماره تماس</th>
+      <td mat-cell *matCellDef="let data"> {{data.phonenumber}} </td>
+    </ng-container>
+    <ng-container matColumnDef="tick">
+      <th mat-header-cell *matHeaderCellDef> تایید </th>
+      <td mat-cell *matCellDef="let data">
+        <div class="mybutton" *ngIf="data.tick === 'false'" (click)="data.tick = 'true' && tick(data)">
+          <mat-icon>check_circle_outline</mat-icon>
+        </div>
+        <p class="mytext" *ngIf="data.tick ==='true'" style="color: black">
+          تایید شده
+        </p>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</mat-card>
