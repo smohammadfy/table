@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import {MatTableDataSource} from '@angular/material';
 import {stringify} from 'querystring';
+import {HttpClient} from '@angular/common/http';
+import {Urlb} from '../URLs';
 export interface DATA {
   name: string;
   lastname: string;
+  username: string;
   service: string;
-  payed: string;
-  tick: string;
+  number: string;
   date: any;
   phonenumber: string;
+  tick: string;
+  id: number;
 }
 @Component({
   selector: 'app-lastsellmore',
@@ -18,25 +22,41 @@ export interface DATA {
 
 
 export class LastsellmoreComponent implements OnInit {
-  constructor() { }
-  datas: DATA[] =  [
-    // tslint:disable-next-line:max-line-length
-    {name: 'alireza' , lastname: 'rohani' , service: ' قهوه رایگان' , tick: 'false' , payed: '12' , date: '2019/02/23' , phonenumber: '091244477240'},
-    {name: 'soheil' , lastname: 'shirvani', service: ' چای رایگان' , tick: 'false' , payed: '12' , date: '2018/02/23' ,
-      phonenumber: '093544477240'},
-    {name: 'ashkan' , lastname: 'goharfar', service: ' پیتزا رایگان' , tick: 'false' , payed: '12', date: '2017/02/23' ,
-      phonenumber: '092144477240'}
-  ];
-  displayedColumns: string[] = ['name', 'lastname' , 'service' , 'payed', 'date' , 'phonenumber' , 'tick'];
-  dataSource = new MatTableDataSource(this.datas);
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue;
-  }
-  tick(data) {
-    console.log(stringify(data));
+  constructor(private http: HttpClient) { }
+  displayedColumns: string[] = ['name', 'lastname' , 'username' , 'service' , 'number', 'date' , 'phonenumber' , 'tick'];
+  username: string;
+  token: string;
+  phonenumber: string;
+  nameandlastname: string[];
+  datas: DATA[] =  [];
+  dataSource: any;
+  tick(id) {
+    this.http.get(Urlb.urlBase + 'get_report?username=' )
   }
   ngOnInit() {
+    this.token = localStorage.getItem('user_key');
+    this.username = localStorage.getItem('username');
   }
-
+  submit() {
+    this.datas = [];
+    // tslint:disable-next-line:max-line-length
+    this.http.post( Urlb.urlBase + 'get_report?username=' + this.username, JSON.stringify({username: '', phonenumber: this.phonenumber}), {headers: {Authorization: this.token}}).subscribe(response => {
+      const result = JSON.parse(JSON.stringify(response));
+      if (result.hasOwnProperty('status') && !result.status) {
+        localStorage.removeItem('user_key');
+        localStorage.removeItem('username');
+        location.reload();
+      }
+      // tslint:disable-next-line:prefer-for-of
+      for ( let i = 0 ; i < result.length ; i++) {
+          this.nameandlastname = result[i].name.split('.', 2);
+          this.datas.push({date: undefined, lastname: this.nameandlastname[1], number: result[i].count ,
+            phonenumber: result[i].phonenumber, service: result[i].title, id : result[i].id,
+            tick: result[i].verfied , username: result[i].username, name: this.nameandlastname[0]});
+      }
+      console.log(this.datas);
+      this.dataSource = new MatTableDataSource(this.datas);
+    });
+  }
 }
+// 09212982058

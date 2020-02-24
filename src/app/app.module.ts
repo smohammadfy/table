@@ -14,8 +14,8 @@ import {
 } from '@angular/material';
 import {FormsModule} from '@angular/forms';
 import { LastsellmoreComponent } from './lastsellmore/lastsellmore.component';
-
-
+import {HttpClientModule} from '@angular/common/http';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -43,6 +43,8 @@ import { LastsellmoreComponent } from './lastsellmore/lastsellmore.component';
     MatButtonToggleModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    HttpClientModule,
+    MatDialogModule,
 
   ],
   providers: [],

@@ -1,9 +1,10 @@
 <mat-card class="mycard">
   <mat-form-field>
     <label>
-      <input matInput  (keyup)="applyFilter($event.target.value)" placeholder="جستجو">
+      <input matInput  [(ngModel)]="phonenumber" placeholder="شماره تماس">
     </label>
   </mat-form-field>
+  <button  style="margin: 20px 10vw;width: 50vw"  mat-raised-button color="primary" (click)="submit()" >جستجو</button>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!-- Position Column -->
@@ -15,6 +16,10 @@
       <th mat-header-cell *matHeaderCellDef>نام خانوادگی</th>
       <td mat-cell *matCellDef="let data"> {{data.lastname}} </td>
     </ng-container>
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef>نام کاربری</th>
+      <td mat-cell *matCellDef="let data"> {{data.username}} </td>
+    </ng-container>
     <!-- Name Column -->
     <ng-container matColumnDef="service">
       <th mat-header-cell *matHeaderCellDef> خدمات </th>
@@ -22,9 +27,9 @@
     </ng-container>
 
     <!-- Weight Column -->
-    <ng-container matColumnDef="payed">
-      <th mat-header-cell *matHeaderCellDef> برداشت شده </th>
-      <td mat-cell *matCellDef="let data"> {{data.payed}} </td>
+    <ng-container matColumnDef="number">
+      <th mat-header-cell *matHeaderCellDef> تعداد </th>
+      <td mat-cell *matCellDef="let data"> {{data.number}} </td>
     </ng-container>
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef>تاریخ </th>
@@ -37,10 +42,10 @@
     <ng-container matColumnDef="tick">
       <th mat-header-cell *matHeaderCellDef> تایید </th>
       <td mat-cell *matCellDef="let data">
-        <div class="mybutton" *ngIf="data.tick === 'false'" (click)="data.tick = 'true' && tick(data)">
+        <div class="mybutton" *ngIf="data.tick === false" (click)="data.tick = true">
           <mat-icon>check_circle_outline</mat-icon>
         </div>
-        <p class="mytext" *ngIf="data.tick ==='true'" style="color: black">
+        <p class="mytext" *ngIf="data.tick ===true" (click)="tick(data.id)" style="color: black">
           تایید شده
         </p>
       </td>

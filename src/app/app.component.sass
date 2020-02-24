@@ -1,0 +1,98 @@
+
+.mycontainer
+  right: 6vh
+  position: relative
+  color: lightyellow
+  font-size: small
+  padding: 10px
+
+
+.bold
+  font-weight: bold
+
+.bolder
+  font-weight: bolder
+
+.logo
+  direction: ltr
+  position: relative
+  padding: auto
+  width: 6vh
+  height: 6vh
+  right: 0
+
+.menu
+  font-family: Material,sans-serif
+  position: relative
+  padding: auto
+  width: 6vh
+  height: 6vh
+  font-size: smaller
+
+.example-container
+
+  display: flex
+  flex-direction: column
+  position: relative
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+
+
+
+.example-sidenav-container
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex: 1
+
+@font-face
+  font-family: ir
+  src: url(../assets/ir.ttf)
+
+
+$break: 700px
+
+
+.fullwidth
+  width: 100%
+
+.responsivecard
+  text-align: right !important
+  position: relative
+  padding: 5vh 5vw
+  margin: 10vh auto
+  font-family: ir,Tahoma,sans-serif
+  @media screen and (max-width: $break)
+    width: 80vw
+    float: none
+  @media screen and (min-width: $break)
+    width: 40vw
+    float: none
+.titlecard
+  font-size: larger
+
+.form-input-text
+
+  font-family: ir,"Times New Roman", sans-serif !important
+
+
+.mainLoginInput::-webkit-input-placeholder
+  font-family: ir, Arial, Helvetica, sans-serif
+
+
+.mainLoginInput:-ms-input-placeholder
+  font-family: ir, Arial, Helvetica, sans-serif
+
+
+.mainLoginInput:-moz-placeholder
+  font-family: ir, Arial, Helvetica, sans-serif
+
+
+.mainLoginInput::-moz-placeholder
+  font-family: ir, Arial, Helvetica, sans-serif
+
+*
+  font-family: ir,Tahoma,sans-serif
+mat-icon
+  font-family: "Material Icons",sans-serif

@@ -1,3 +1,29 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<app-lastsellmore></app-lastsellmore>
+<!--<app-lastsellmore></app-lastsellmore>-->
+<mat-card class="responsivecard" dir="rtl" xmlns="http://www.w3.org/1999/html" *ngIf="lastsellmore===false;">
+  <mat-card-title class="titlecard">
+    خوش آمدید. اطلاعات خود را وارد کنید
+  </mat-card-title>
+  <mat-form-field class="fullwidth">
+    <label>
+      <input matInput  type="text" placeholder="نام کاربری" [(ngModel)]="username">
+    </label>
+    <button mat-button *ngIf="username" matSuffix mat-icon-button aria-label="Clear" (click)="username=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+  <mat-form-field class="fullwidth">
+    <label>
+      <input matInput  type="password" placeholder="رمز عبور" [(ngModel)]="token">
+    </label>
+    <button mat-button *ngIf="token" matSuffix mat-icon-button aria-label="Clear" (click)="token=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+  <button  class="button"  mat-raised-button color="primary" (click)="submit()" >ورود</button>
+  <mat-hint style="color:red; font-size: small; padding: 0 1vw" *ngIf="failed===true"> نام کاربری یا رمز عبور اشتباه است !</mat-hint>
+
+</mat-card>
+<app-lastsellmore *ngIf="failed===false && lastsellmore===true"></app-lastsellmore>
+
 <router-outlet></router-outlet>
